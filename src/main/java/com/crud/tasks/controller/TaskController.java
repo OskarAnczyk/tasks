@@ -8,8 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import java.awt.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -19,19 +17,15 @@ import java.util.List;
 public class TaskController {
 
     private final DbService service;
-    private final TaskMapper taskMapper;
 
     @RequestMapping(method = RequestMethod.GET, value = "getTasks")
     public List<TaskDto> getTasks() {
-        List<Task> tasks = service.getAllTasks();
-        return taskMapper.mapToTaskDtoList(tasks);
+        return service.getAllTasks();
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "getTask")
     public TaskDto getTask(@RequestParam Long taskId) throws TaskNotFoundException {
-        return taskMapper.mapToTaskDto(
-                service.getTask(taskId).orElseThrow(TaskNotFoundException::new)
-        );
+        return service.getTask(taskId);
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "deleteTask")
@@ -41,14 +35,11 @@ public class TaskController {
 
     @RequestMapping(method = RequestMethod.PUT, value = "updateTask")
     public TaskDto updateTask(@RequestBody TaskDto taskDto) {
-        Task task = taskMapper.mapToTask(taskDto);
-        Task savedTask = service.saveTask(task);
-        return taskMapper.mapToTaskDto(savedTask);
+        return service.updateTask(taskDto);
     }
 
     @RequestMapping(method = RequestMethod.POST,value = "createTask", consumes = MediaType.APPLICATION_JSON_VALUE)
     public void createTask(@RequestBody TaskDto taskDto) {
-        Task task = taskMapper.mapToTask((taskDto));
-        service.saveTask(task);
+        service.saveTask(taskDto);
     }
 }

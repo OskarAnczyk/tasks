@@ -1,6 +1,7 @@
 package com.crud.tasks.mapper;
 
 import com.crud.tasks.domain.*;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -8,7 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
@@ -18,6 +18,7 @@ public class TrelloMapperTestSuite {
     private TrelloMapper trelloMapper;
 
     @Test
+    @DisplayName("Map to Dto")
     void testTrelloMapperToDto(){
         //Given
         TrelloList trelloList = new TrelloList("1","testList",false);
@@ -38,6 +39,7 @@ public class TrelloMapperTestSuite {
     }
 
     @Test
+    @DisplayName("Map to domain")
     void testTrelloMapperToDomain(){
         //Given
         TrelloListDto trelloListDto = new TrelloListDto("1","testListDto",false);
