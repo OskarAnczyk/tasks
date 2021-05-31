@@ -6,6 +6,7 @@ import com.crud.tasks.domain.TaskDto;
 import com.crud.tasks.mapper.TaskMapper;
 import com.crud.tasks.repository.TaskRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class DbService {
+    @Autowired
     private TaskMapper taskMapper;
 
     private final TaskRepository repository;
@@ -36,8 +38,9 @@ public class DbService {
         repository.deleteById(id);
     }
 
-    public void saveTask(TaskDto taskDto){
+    public TaskDto saveTask(TaskDto taskDto){
         Task task = taskMapper.mapToTask(taskDto);
-        repository.save(task);
+        Task savedTask = repository.save(task);
+        return taskMapper.mapToTaskDto(savedTask);
     }
 }

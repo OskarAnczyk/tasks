@@ -24,6 +24,7 @@ public class TrelloMapperTestSuite {
         TrelloList trelloList = new TrelloList("1","testList",false);
         List<TrelloList> trelloLists = new ArrayList<>();
         trelloLists.add(trelloList);
+        TrelloBoardDto trelloBoardDto = new TrelloBoardDto();
         TrelloBoard trelloBoard = new TrelloBoard("1","testBoard",trelloLists);
         List<TrelloBoard> trelloBoards = new ArrayList<>();
         trelloBoards.add(trelloBoard);
